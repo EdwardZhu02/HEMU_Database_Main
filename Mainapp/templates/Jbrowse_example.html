@@ -1,0 +1,114 @@
+{% extends "basemodel.html" %}
+
+
+{% block title_block %}
+    Jbrowse Example - Volvox
+{% endblock %}
+
+{% block javascript_block %}
+    <script
+      src="//unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="//unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="//unpkg.com/@jbrowse/react-linear-genome-view/dist/react-linear-genome-view.umd.development.js"
+      crossorigin
+    ></script>
+{% endblock %}
+
+{% block content_block %}
+    {% load static %}
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href={% url 'home_page' %}>The HEMU Andropogoneae database</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href={% url 'home_page' %}>Home</a></li>
+            <li><a href={% url 'rnaseq_search' %}>RNA-seq</a></li>
+            <li><a href={% url 'te_home_page' %}>TE</a></li>
+            <li><a href={% url 'tf_home_page' %}>TF</a></li>
+            <li><a href="#">Co-expression</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href={% url 'user_guide' %}>User guide</a></li>
+                <li><a href="#">Cite HEMU database</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Downloads</li>
+                <li><a href="#">Gene expression matrix</a></li>
+                <li><a href="#">Plotting scripts</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container" style="margin: 25px 110px;">
+        <div class="page-header">
+            <h2 style="margin-top: 45px;">The HEMU Andropogoneae database</h2>
+        </div>
+    </div>
+    <div class='container'>
+        <div class='row'>
+            <div class="col-md-12">
+                <div id="jbrowse_linear_genome_view"></div>
+            </div>
+        </div>
+    </div>
+
+    <a href={% url "home_page" %}>Back to Home Page</a>
+
+
+    <script type="module">
+      import assembly from '{% static 'Genome_resources/volvox_assembly.js' %}'
+      import tracks from '{% static 'Genome_resources/volvox_tracks.js' %}'
+      const { createViewState, JBrowseLinearGenomeView } =
+        JBrowseReactLinearGenomeView
+      const { createElement } = React
+      const { render } = ReactDOM
+      const updates = document.getElementById('update')
+      const state = new createViewState({
+        assembly,
+        tracks,
+        onChange: patch => {
+          updates.innerHTML += JSON.stringify(patch) + '\n'
+        },
+      })
+
+      const textArea = document.getElementById('session')
+      document.getElementById('showsession').addEventListener('click', () => {
+        textArea.innerHTML = JSON.stringify(state.session, undefined, 2)
+      })
+      render(
+        createElement(JBrowseLinearGenomeView, { viewState: state }),
+        document.getElementById('jbrowse_linear_genome_view'),
+      )
+    </script>
+    <div style="visibility: hidden">
+        <button id="showsession">Show current session</button>
+        <textarea id="session" name="session" rows="20" cols="80"></textarea>
+        <p>updates:</p>
+        <textarea
+          id="update"
+          name="update"
+          rows="5"
+          cols="80"
+          wrap="off"
+        ></textarea>
+    </div>
+
+{% endblock %}

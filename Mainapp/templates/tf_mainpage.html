@@ -1,0 +1,124 @@
+{% extends 'basemodel.html' %}
+
+{% block title_block %}
+    Transcription Factor Database - HEMU
+{% endblock %}
+
+{% block content_block %}
+    {% load static %}
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href={% url 'home_page' %}>The HEMU Andropogoneae database</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+          <ul class="nav navbar-nav">
+            <li><a href={% url 'home_page' %}>Home</a></li>
+            <li><a href={% url 'rnaseq_search' %}>RNA-seq</a></li>
+            <li><a href={% url 'te_home_page' %}>TE</a></li>
+            <li class="active"><a href={% url 'tf_home_page' %}>TF</a></li>
+            <li><a href="#">Co-expression</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href={% url 'user_guide' %}>User guide</a></li>
+                <li><a href="#">Cite HEMU database</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Downloads</li>
+                <li><a href="#">Gene expression matrix</a></li>
+                <li><a href="#">Plotting scripts</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container" style="margin: 25px 110px;">
+      <div class="page-header">
+        <h2 style="margin-top: 45px;">The TF database <small><i>Create TF expression heatmaps within a click</i></small></h2>
+      </div>
+    </div>
+
+    <div class='container'>
+        <div class='row'>
+            <div class="col-md-1">
+
+            </div>
+            <div class="col-md-10">
+                <div class="panel panel-info">
+                  <div class="panel-heading" style="text-align: center">TF Expression Heatmap Generation</div>
+                  <div class="panel-body">
+                      <form method="post" class="form">
+                          {% csrf_token %}
+                          <label>TF family name / TF gene id</label>
+                          <div class="input-group">
+                            <span class="input-group-addon"><b>fam:/id:</b></span>
+                            <input type="text" name="tf_query" class="form-control" placeholder="separate multiple queries with ;">
+                          </div>
+                          <span class="label label-info">Example: by family</span><label style="color: grey"><small>  fam:YABBY;fam:TCP</small></label>
+                          <span class="label label-info">Example: by ID</span><label style="color: grey"><small>  id:Zm00001d054112;id:Zm00001d054110</small></label>
+                          <br><br>
+                          <label>Tissue type name / Sample accession id</label>
+                          <div class="input-group">
+                            <span class="input-group-addon"><b>tis:/sp:</b></span>
+                            <input type="text" name="sample_query" class="form-control" placeholder="separate multiple queries with ;">
+                          </div>
+                          <span class="label label-info">Example: by tissue</span><label style="color: grey"><small>  tis:root;tis:ear</small></label>
+                          <span class="label label-info">Example: by sample</span><label style="color: grey"><small>  sp:SRR13178453;sp:SRR13161349</small></label>
+                          <br><br>
+                          <label>Select species</label>
+                          <select class="form-control" name="species_query" style="height: 40px; width: 300px">
+                            <option value="coix" selected>Coix lacryma</option>
+                            <option value="zea">Zea mays</option>
+                            <option value="saccharum">Saccharum</option>
+                            <option value="sorghum">Sorghum bicolor</option>
+                            <option value="miscanthus">Miscanthus floridulus</option>
+                          </select>
+                          <br>
+                          <button type="submit" class="btn btn-primary" style="height: 40px; width: 300px">Generate Heatmap</button>
+                      </form>
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+
+            </div>
+        </div>
+    </div>
+    <div class='container'>
+        <div class='row'>
+            <div class="col-md-1">
+
+            </div>
+            <div class="col-md-7">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Explore raw TF expression data: <i>Zea mays</i></div>
+                  <div class="panel-body">
+                    <div>Overview: TF <b>family distribution</b> for <i>Zea mays</i><br></div>
+                    <iframe src="{% static 'TF_homepage/Zea_mays_TF_overview.html' %}"
+                            width="500px" height="200px" name="topFrame" frameborder="0"></iframe>
+                    <div>Available tissue types: <b style="color: darkred">{{ zea_tissue_list }}</b></div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <div>Download raw data here<br></div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6 (Andro_Database)" project-jdk-type="Python SDK" />
+  <component name="RMarkdownSettings">
+    <option name="renderProfiles">
+      <map>
+        <entry key="file://$PROJECT_DIR$/Auxscripts/database_construction/R_markdown/Circular_barplot.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="outputDirectoryUrl" value="file://$PROJECT_DIR$/Auxscripts/database_construction/R_markdown" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/Auxscripts/database_construction/R_markdown/HEMU web database graphing scripts.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="outputDirectoryUrl" value="file://$PROJECT_DIR$/Auxscripts/database_construction/R_markdown" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/Auxscripts/database_construction/R_markdown/PlotWithSample.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="outputDirectoryUrl" value="file://$PROJECT_DIR$/Auxscripts/database_construction/R_markdown" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/Mainapp/R_visualization/HEMU web database graphing scripts.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="outputDirectoryUrl" value="file://$PROJECT_DIR$/Mainapp/R_visualization" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

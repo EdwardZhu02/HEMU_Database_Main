@@ -1,0 +1,78 @@
+{% extends 'basemodel.html' %}
+
+{% block title_block %}
+    Transcription Factor Database - HEMU
+{% endblock %}
+
+{% block content_block %}
+    {% load static %}
+    <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href={% url 'home_page' %}>The HEMU Andropogoneae database</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+              <ul class="nav navbar-nav">
+                <li><a href={% url 'home_page' %}>Home</a></li>
+                <li><a href={% url 'rnaseq_search' %}>RNA-seq</a></li>
+                <li><a href={% url 'te_home_page' %}>TE</a></li>
+                <li class="active"><a href={% url 'tf_home_page' %}>TF</a></li>
+                <li><a href="#">Co-expression</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href={% url 'user_guide' %}>User guide</a></li>
+                    <li><a href="#">Cite HEMU database</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header">Downloads</li>
+                    <li><a href="#">Gene expression matrix</a></li>
+                    <li><a href="#">Plotting scripts</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
+        </nav>
+
+    <div class="container" style="margin: 25px 110px;">
+        <div class="page-header">
+            <h2 style="margin-top: 45px;">The TF database</h2>
+        </div>
+    </div>
+
+    <div class='container'>
+        <div class='row'>
+            <div class="col-md-1">
+
+            </div>
+            <div class="col-md-10">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <div style="text-align: center">
+                        <div>Heatmap: <i>{{ species_query }}</i>, Filename: {{ heatmap_filename }}<br></div>
+                        <a href="{% static 'Temp_R_heatmap/' %}{{ heatmap_filename }}" download="heatmap">
+                            <button class="btn btn-default" type="button" id=download>Download Heatmap</button>
+                        </a>
+                        <a href={% url 'tf_home_page' %}>
+                            <button class="btn btn-default">Go Back</button>
+                        </a>
+                    </div>
+                    <br>
+                    <img src="{% static 'Temp_R_heatmap/' %}{{ heatmap_filename }}"
+                         class="img-responsive" alt="Cinque Terre" id="downloadable_img1">
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

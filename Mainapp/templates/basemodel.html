@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title_block %}{% endblock %}</title>
+
+    <link rel='stylesheet' href='{% static 'Bootstrap-3.4.1/css/bootstrap.min.css' %}'>
+
+    {% block javascript_block %}{% endblock %}
+
+</head>
+<body>
+
+    {% block content_block %}{% endblock %}
+    {% block aux_block1 %}{% endblock %}
+    {% block aux_block2 %}{% endblock %}
+
+    <script type='text/javascript' src='{% static 'jquery-1.12.4.min.js' %}'></script>
+    <script type='text/javascript' src='{% static 'Bootstrap-3.4.1/js/bootstrap.min.js' %}'></script>
+
+    {% block aux_block3 %}{% endblock %}
+</body>
+</html>
