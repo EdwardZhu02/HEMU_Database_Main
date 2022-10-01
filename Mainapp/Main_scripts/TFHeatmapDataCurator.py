@@ -1,14 +1,14 @@
 import pandas as pd
 import numpy as np
 import pymysql
-from Mainapp.Main_scripts.MainConfiguration import query_sql_pwd, query_tables
+from Mainapp.Main_scripts.MainConfiguration import query_sql, query_tables
 from Mainapp.Main_scripts.TFHeatmapSampleConfiguration import return_sample
 
 # Used for pymysql services
-dbhost = 'localhost'
-dbuser = 'root'
-dbpassword = str(query_sql_pwd())
-dbdatabase = 'hemu_database'
+dbhost = str(query_sql("host"))
+dbuser = str(query_sql("user"))
+dbpassword = str(query_sql("pwd"))
+dbdatabase = str(query_sql("dbname"))
 
 
 def TF_fam_to_geneid_query(species, TF_fam_name_list, indv_geneid_list):
@@ -71,7 +71,7 @@ def TF_heatmap_df_builder(species, TF_fam_list, tissue_list):
                                                 str(sql_result_tpm)
                                                 ])
                 except IndexError:
-                    qprint("Exception occurred while accessing database-returning tuple.")
+                    print("Exception occurred while accessing database-returning tuple.")
 
     # Build dataframe
     init_df = pd.DataFrame(main_TF_heatmap_res,

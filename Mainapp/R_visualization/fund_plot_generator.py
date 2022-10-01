@@ -8,13 +8,11 @@ def overview_barplot(exp_data, gene_id, query_format, query_species):
 
     robjects.globalenv['exp_data'] = exp_data
     plt_rscript_tpm = '''
-    
         overview_barplot_T <- function (exp_data, gene_id){
           library(ggplot2)
           library(ggthemes)
           library(plotly);
           library(ggrepel);
-          library(hrbrthemes);
           
           # Generate overview barplot using expression data from a single gene
           # sample_id fpkm tpm tissue_type
@@ -51,7 +49,6 @@ def overview_barplot(exp_data, gene_id, query_format, query_species):
           library(ggthemes)
           library(plotly);
           library(ggrepel);
-          library(hrbrthemes);
 
           # Generate overview barplot using expression data from a single gene
           # sample_id fpkm tpm tissue_type
@@ -88,7 +85,6 @@ def overview_barplot(exp_data, gene_id, query_format, query_species):
           library(ggthemes)
           library(plotly);
           library(ggrepel);
-          library(hrbrthemes);
 
           # Generate overview barplot using expression data from a single gene
           # sample_id fpkm tpm tissue_type
@@ -125,7 +121,6 @@ def overview_barplot(exp_data, gene_id, query_format, query_species):
               library(ggthemes)
               library(plotly);
               library(ggrepel);
-              library(hrbrthemes);
 
               # Generate overview barplot using expression data from a single gene
               # sample_id fpkm tpm tissue_type
@@ -190,7 +185,6 @@ def tissue_specific_barplot(exp_data, gene_id, query_format, query_species):
       library(ggthemes);
       library(plotly);
       library(ggrepel);
-      library(hrbrthemes)
       
       # Generate tissue-specific barplot using expression data from a single gene
       # sample_id fpkm tpm tissue_type
@@ -242,7 +236,6 @@ def tissue_specific_barplot(exp_data, gene_id, query_format, query_species):
           library(ggthemes);
           library(plotly);
           library(ggrepel);
-          library(hrbrthemes)
 
           # Generate tissue-specific barplot using expression data from a single gene
           # sample_id fpkm tpm tissue_type
@@ -294,7 +287,6 @@ def tissue_specific_barplot(exp_data, gene_id, query_format, query_species):
           library(ggthemes);
           library(plotly);
           library(ggrepel);
-          library(hrbrthemes)
 
           # Generate tissue-specific barplot using expression data from a single gene
           # sample_id fpkm tpm tissue_type
@@ -346,7 +338,6 @@ def tissue_specific_barplot(exp_data, gene_id, query_format, query_species):
               library(ggthemes);
               library(plotly);
               library(ggrepel);
-              library(hrbrthemes)
 
               # Generate tissue-specific barplot using expression data from a single gene
               # sample_id fpkm tpm tissue_type

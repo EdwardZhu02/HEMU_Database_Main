@@ -1,11 +1,12 @@
-{% extends "basemodel.html" %}
-
-
-{% block title_block %}
-    Jbrowse Example - Volvox
-{% endblock %}
-
-{% block javascript_block %}
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='{% static 'Bootstrap-3.4.1/css/bootstrap.min.css' %}'>
+    <title>Jbrowse - HEMU</title>
     <script
       src="//unpkg.com/react@16/umd/react.development.js"
       crossorigin
@@ -18,14 +19,13 @@
       src="//unpkg.com/@jbrowse/react-linear-genome-view/dist/react-linear-genome-view.umd.development.js"
       crossorigin
     ></script>
-{% endblock %}
-
-{% block content_block %}
-    {% load static %}
+</head>
+<body>
 
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -36,8 +36,8 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
           <ul class="nav navbar-nav">
-            <li class="active"><a href={% url 'home_page' %}>Home</a></li>
-            <li><a href={% url 'rnaseq_search' %}>RNA-seq</a></li>
+            <li><a href={% url 'home_page' %}>Home</a></li>
+            <li class="active"><a href={% url 'rnaseq_search' %}>RNA-seq</a></li>
             <li><a href={% url 'te_home_page' %}>TE</a></li>
             <li><a href={% url 'tf_home_page' %}>TF</a></li>
             <li><a href="#">Co-expression</a></li>
@@ -57,25 +57,16 @@
       </div>
     </nav>
 
-    <div class="container" style="margin: 25px 110px;">
-        <div class="page-header">
-            <h2 style="margin-top: 45px;">The HEMU Andropogoneae database</h2>
-        </div>
-    </div>
-    <div class='container'>
-        <div class='row'>
-            <div class="col-md-12">
-                <div id="jbrowse_linear_genome_view"></div>
-            </div>
-        </div>
-    </div>
-
-    <a href={% url "home_page" %}>Back to Home Page</a>
-
+    {% load static %}
+    <br><br><br><br>
+    <h4 style="text-align: center"><i>Sorghum bicolor</i> cultivar Rio</h4>
+    <div style="text-align: center"><a href={% url "home_page" %}>Back to Home Page</a></div>
+    <br>
+    <div id="jbrowse_linear_genome_view"></div>
 
     <script type="module">
-      import assembly from '{% static 'Genome_resources/volvox_assembly.js' %}'
-      import tracks from '{% static 'Genome_resources/volvox_tracks.js' %}'
+      import assembly from '{% static 'Genome_resources/Sb_Rio/Sb_Rio_assembly.js' %}'
+      import tracks from '{% static 'Genome_resources/Sb_Rio/Sb_Rio_tracks.js' %}'
       const { createViewState, JBrowseLinearGenomeView } =
         JBrowseReactLinearGenomeView
       const { createElement } = React
@@ -111,4 +102,7 @@
         ></textarea>
     </div>
 
-{% endblock %}
+    <script type='text/javascript' src='{% static 'jquery-1.12.4.min.js' %}'></script>
+    <script type='text/javascript' src='{% static 'Bootstrap-3.4.1/js/bootstrap.min.js' %}'></script>
+</body>
+</html>

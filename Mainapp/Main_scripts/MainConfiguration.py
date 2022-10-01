@@ -13,7 +13,12 @@ tables_dict = {  # Table names
     'sorghum_samp': 'sorghum_samp',
     'sorghum_tf': 'sorghum_tf',
 }
+
+sql_user = "root"
 sql_pwd = "Liuju83198431"
+sql_host = "localhost"
+sql_port = "3306"
+sql_dbname = "hemu_database"
 
 
 def query_tables(tbl2query):
@@ -23,5 +28,16 @@ def query_tables(tbl2query):
         return None
 
 
-def query_sql_pwd():
-    return sql_pwd
+def query_sql(identity):
+    if identity == "host":
+        return sql_host
+    elif identity == "user":
+        return sql_user
+    elif identity == "pwd":
+        return sql_pwd
+    elif identity == "port":
+        return sql_port
+    elif identity == "dbname":
+        return sql_dbname
+    else:
+        return None

@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 
-import TF_heatmap_generator
+from Mainapp.R_visualization import TF_heatmap_generator
 from Mainapp.Main_scripts import MainConfiguration
 from Mainapp.Main_scripts.MainDataCurator import gene_exp_df_builder, fund_info_obtainer
 from Mainapp.R_visualization import fund_plot_generator
@@ -165,7 +165,7 @@ def init_te_scr(request):
 
 
 def jbrowse(request):
-    return render(request, 'Jbrowse_main.html')
+    return render(request, 'Jbrowse/Jb_sorghum_rio.html')
 
 
 def user_guide(request):

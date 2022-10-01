@@ -1,16 +1,16 @@
 import pandas as pd
 import numpy as np
 import pymysql
-from Mainapp.Main_scripts.MainConfiguration import query_sql_pwd
+from Mainapp.Main_scripts.MainConfiguration import query_sql
 
 # Extract gene expression data from database and append tissue information regarding each sample
 # Database configurations
 
 # Used for pymysql services
-dbhost = 'localhost'
-dbuser = 'root'
-dbpassword = str(query_sql_pwd())
-dbdatabase = 'hemu_database'
+dbhost = str(query_sql("host"))
+dbuser = str(query_sql("user"))
+dbpassword = str(query_sql("pwd"))
+dbdatabase = str(query_sql("dbname"))
 
 
 def gene_exp_df_builder(gene_id, exp_sheet_name, sampleinfo_sheet_name):
