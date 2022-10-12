@@ -25,7 +25,6 @@
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -37,10 +36,24 @@
         <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
           <ul class="nav navbar-nav">
             <li><a href={% url 'home_page' %}>Home</a></li>
-            <li class="active"><a href={% url 'rnaseq_search' %}>RNA-seq</a></li>
-            <li><a href={% url 'te_home_page' %}>TE</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gene<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href={% url 'gene_expression' %}>Gene Expression</a></li>
+                <li><a href={% url 'gene_DE' %}>Differential Analysis</a></li>
+                <li><a href="#">WGCNA</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">TE<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href={% url 'te_home_page' %}>TE Expression</a></li>
+                <li><a href={% url 'home_page' %}>TE Homology</a></li>
+                <li><a href={% url 'home_page' %}>Differential Analysis</a></li>
+              </ul>
+            </li>
             <li><a href={% url 'tf_home_page' %}>TF</a></li>
-            <li><a href="#">Co-expression</a></li>
+            <li><a href={% url "jbrowse" %}>Data Browse</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More<span class="caret"></span></a>
               <ul class="dropdown-menu">

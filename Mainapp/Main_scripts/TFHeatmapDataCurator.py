@@ -70,8 +70,8 @@ def TF_heatmap_df_builder(species, TF_fam_list, tissue_list):
                                                 indv_tf[1],
                                                 str(sql_result_tpm)
                                                 ])
-                except IndexError:
-                    print("Exception occurred while accessing database-returning tuple.")
+                except:
+                    print("Exception occurred while querying database.")
 
     # Build dataframe
     init_df = pd.DataFrame(main_TF_heatmap_res,

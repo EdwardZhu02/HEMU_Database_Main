@@ -38,7 +38,7 @@ def overview_barplot(exp_data, gene_id, query_format, query_species):
               )
           output <- plotly::ggplotly(overview_barplot1)
           HTML_name <- paste0("Mainapp/static/Temp_R_html/", gene_id, "_plt1.html")
-          htmlwidgets::saveWidget(output, HTML_name)
+          htmlwidgets::saveWidget(output, HTML_name, selfcontained = TRUE)
           return(TRUE)
         }
         '''
@@ -74,7 +74,7 @@ def overview_barplot(exp_data, gene_id, query_format, query_species):
               )
           output <- plotly::ggplotly(overview_barplot1)
           HTML_name <- paste0("Mainapp/static/Temp_R_html/", gene_id, "_plt1.html")
-          htmlwidgets::saveWidget(output, HTML_name)
+          htmlwidgets::saveWidget(output, HTML_name, selfcontained = TRUE)
           return(TRUE)
         }
         '''
@@ -110,7 +110,7 @@ def overview_barplot(exp_data, gene_id, query_format, query_species):
               )
           output <- plotly::ggplotly(overview_barplot1)
           HTML_name <- paste0("Mainapp/static/Temp_R_html/", gene_id, "_plt1.html")
-          htmlwidgets::saveWidget(output, HTML_name)
+          htmlwidgets::saveWidget(output, HTML_name, selfcontained = TRUE)
           return(TRUE)
         }
         '''
@@ -146,7 +146,7 @@ def overview_barplot(exp_data, gene_id, query_format, query_species):
                   )
               output <- plotly::ggplotly(overview_barplot1)
               HTML_name <- paste0("Mainapp/static/Temp_R_html/", gene_id, "_plt1.html")
-              htmlwidgets::saveWidget(output, HTML_name)
+              htmlwidgets::saveWidget(output, HTML_name, selfcontained = TRUE)
               return(TRUE)
             }
             '''
@@ -224,7 +224,7 @@ def tissue_specific_barplot(exp_data, gene_id, query_format, query_species):
     
       output <- plotly::ggplotly(tissue_specific_barplot_t)
       HTML_name <- paste0("Mainapp/static/Temp_R_html/", gene_id, "_plt2.html")
-      htmlwidgets::saveWidget(output, HTML_name)
+      htmlwidgets::saveWidget(output, HTML_name, selfcontained = TRUE)
       return(TRUE)
     }
     '''
@@ -274,7 +274,7 @@ def tissue_specific_barplot(exp_data, gene_id, query_format, query_species):
 
           output <- plotly::ggplotly(tissue_specific_barplot_f)
           HTML_name <- paste0("Mainapp/static/Temp_R_html/", gene_id, "_plt2.html")
-          htmlwidgets::saveWidget(output, HTML_name)
+          htmlwidgets::saveWidget(output, HTML_name, selfcontained = TRUE)
           return(TRUE)
         }
         '''
@@ -326,7 +326,7 @@ def tissue_specific_barplot(exp_data, gene_id, query_format, query_species):
 
           output <- plotly::ggplotly(tissue_specific_barplot_t_big)
           HTML_name <- paste0("Mainapp/static/Temp_R_html/", gene_id, "_plt2.html")
-          htmlwidgets::saveWidget(output, HTML_name)
+          htmlwidgets::saveWidget(output, HTML_name, selfcontained = TRUE)
           return(TRUE)
         }
         '''
@@ -377,7 +377,7 @@ def tissue_specific_barplot(exp_data, gene_id, query_format, query_species):
 
               output <- plotly::ggplotly(tissue_specific_barplot_f_big)
               HTML_name <- paste0("Mainapp/static/Temp_R_html/", gene_id, "_plt2.html")
-              htmlwidgets::saveWidget(output, HTML_name)
+              htmlwidgets::saveWidget(output, HTML_name, selfcontained = TRUE)
               return(TRUE)
             }
             '''

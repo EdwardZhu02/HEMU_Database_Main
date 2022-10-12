@@ -6,8 +6,8 @@ pandas2ri.activate()  # Used for variable conversion (pd.DataFrame)
 
 
 def TF_tpm_heatmap(raw_tf_data):
-    # Generate 5-digit random number for heatmap nomination
-    output_filename = str(random.randint(10000, 99999)) + "heatmap.png"
+    # Generate 7-digit random number for heatmap nomination
+    output_filename = str(random.randint(1000000000, 9999999999)) + "heatmap.png"
 
     robjects.globalenv['tf_data'] = raw_tf_data
     robjects.globalenv['output_filename'] = output_filename
@@ -15,7 +15,7 @@ def TF_tpm_heatmap(raw_tf_data):
     plt_rscript_tpm = '''
     
     TF_tpm_heatmap <- function (raw_tf_data, output_filename){
-    
+        
         library(reshape2)  # data cleaning
         library(tidyverse)  # data visualization
         library(aplot)  # inserting barplot to the heatmap's side

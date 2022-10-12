@@ -1,44 +1,11 @@
 {% extends 'basemodel.html' %}
+{% load static %}
 
 {% block title_block %}
-    RNA-seq Database - HEMU
+    Search result - HEMU
 {% endblock %}
 
 {% block content_block %}
-    {% load static %}
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href={% url 'home_page' %}>The HEMU Andropogoneae database</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
-          <ul class="nav navbar-nav">
-            <li><a href={% url 'home_page' %}>Home</a></li>
-            <li class="active"><a href={% url 'rnaseq_search' %}>RNA-seq</a></li>
-            <li><a href={% url 'te_home_page' %}>TE</a></li>
-            <li><a href={% url 'tf_home_page' %}>TF</a></li>
-            <li><a href="#">Co-expression</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href={% url 'user_guide' %}>User guide</a></li>
-                <li><a href="#">Cite HEMU database</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Downloads</li>
-                <li><a href="#">Gene expression matrix</a></li>
-                <li><a href="#">Plotting scripts</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
 
     <div class="container" style="margin: 25px 110px;">
       <div class="page-header">
@@ -55,7 +22,6 @@
         </div>
       </div>
     </div>
-
 
     <div class="container">
         <div class='row'>
@@ -117,5 +83,56 @@
             </div>
         </div>
     </div>
+    <div class="loader-wrapper" style="text-align: center">
+        <b style="color: darkred">Task time consumption: {{ time_consumption }}s</b>
+    </div>
 
+    {% for indv_query in query_list_full %}
+
+        <div class='container'>
+            <div class='row'>
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ indv_query.0.0 }}: Expression Plots ({{ query_format }})</h3>
+                        </div>
+                        <div class="panel-body">
+                            <iframe src="{% static 'Temp_R_html/' %}{{ indv_query.0.0 }}_plt1.html"
+                            width="350px" height= "250px" name="topFrame" frameborder="0"></iframe>
+
+                            <iframe src="{% static 'Temp_R_html/' %}{{ indv_query.0.0 }}_plt2.html"
+                                    width="350px" height= "250px" name="topFrame" frameborder="0"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ indv_query.0.0 }}: Fundamental Info ({{ query_format }})</h3>
+                        </div>
+                        <div class="panel-body">
+                            This panel displays fundamental information regarding the query gene.
+                            <ul class="list-group">
+                                <li class="list-group-item">Gene ID: <b style="color: #ff1e3a">{{ indv_query.0.0 }}</b></li>
+                                <li class="list-group-item">Detected in <b style="color: #ff1e3a">{{ indv_query.0.1 }}/{{ indv_query.0.2 }}</b> samples <b style="color: #ff1e3a">({% widthratio indv_query.0.1 indv_query.0.2 100 %}%)</b></li>
+                                <li class="list-group-item">Max: <b>{{ indv_query.0.3 }}</b></li>
+                                <li class="list-group-item">Min: <b>{{ indv_query.0.4 }}</b></li>
+                                <li class="list-group-item">Median: <b>{{ indv_query.0.5 }}</b></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endblock %}
+
+{% block aux_block3 %}
+    <script>
+        $(window).on('load', function (){
+            $('.loader-wrapper').fadeOut()
+        });
+    </script>
 {% endblock %}

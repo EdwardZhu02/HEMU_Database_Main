@@ -34,7 +34,7 @@ def gene_exp_df_builder(gene_id, exp_sheet_name, sampleinfo_sheet_name):
         cursor.execute(sqlcmd_select_gene)
         results = cursor.fetchall()
     except:
-        print("Exception occurred.")
+        print("Exception occurred while querying database.")
 
     # Build dataframe
     init_df_list = [[indv[2], indv[3], indv[4], indv[5]] for indv in results]

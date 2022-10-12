@@ -1,11 +1,22 @@
 from django.shortcuts import render, HttpResponse, redirect
 
-from Mainapp.R_visualization import TF_heatmap_generator
+# Server Configurations
 from Mainapp.Main_scripts import MainConfiguration
-from Mainapp.Main_scripts.MainDataCurator import gene_exp_df_builder, fund_info_obtainer
+
+# Gene Module - Expression
+from Mainapp.Main_scripts.GeneExpressionDataCurator import gene_exp_df_builder, fund_info_obtainer
 from Mainapp.R_visualization import fund_plot_generator
+
+# Gene Module - DE Analysis
+from Mainapp.Main_scripts import GeneDEDataCurator
+from Mainapp.R_visualization import DE_analysis_plt_generator
+
+# TF Module
 from Mainapp.Main_scripts import TFHeatmapDataCurator
+from Mainapp.R_visualization import TF_heatmap_generator
 from Mainapp.Main_scripts import TFHeatmapSampleConfiguration
+
+# Other Components
 from threading import Thread  # Enabling multi-threading support
 from time import time
 import re
@@ -19,7 +30,7 @@ def init_scr(request):
     return render(request, 'home.html')
 
 
-def search_rnaseq(request):
+def gene_exp_init(request):
     global exp_df, _time_consumption
     _exp_matrix = []
     _error_message = ""
@@ -31,7 +42,7 @@ def search_rnaseq(request):
     # ';' is the separation mark for multiple query genes
 
     if request.method == 'GET':
-        return render(request, 'rnaseq_search_main.html')
+        return render(request, 'gene_search_main.html')
     elif request.method == 'POST':
         query_list = request.POST.get('main_query').split(';')  # Original query data
         query_species = request.POST.get('query_species')  # Species to query
@@ -83,7 +94,7 @@ def search_rnaseq(request):
 
         _time_consumption = task_deployer(query_list)
         if query_species == "coix":
-            return render(request, 'rnaseq_search_result_coix.html',
+            return render(request, 'gene_search_result_coix.html',
                           {'query_list': query_list,
                            'query_list_full': query_list_full,
                            'query_format': query_format,
@@ -91,7 +102,7 @@ def search_rnaseq(request):
                            'time_consumption': _time_consumption,
                            })
         elif query_species == "zea":
-            return render(request, 'rnaseq_search_result_zea.html',
+            return render(request, 'gene_search_result_zea.html',
                           {'query_list': query_list,
                            'query_list_full': query_list_full,
                            'query_format': query_format,
@@ -99,7 +110,7 @@ def search_rnaseq(request):
                            'time_consumption': _time_consumption,
                            })
         elif query_species == "sorghum":
-            return render(request, 'rnaseq_search_result_zea.html',
+            return render(request, 'gene_search_result_zea.html',
                           {'query_list': query_list,
                            'query_list_full': query_list_full,
                            'query_format': query_format,
@@ -108,6 +119,64 @@ def search_rnaseq(request):
                            })
         else:
             return HttpResponse("Invalid query.")
+
+
+def gene_DE_init(request):
+    global exp_sheet_name
+
+    if request.method == 'GET':
+        return render(request, 'gene_DE_main.html')
+    elif request.method == 'POST':
+        species_query = request.POST.get('species_query')
+        logfc_threshold = request.POST.get('logfc_threshold')
+        pvalue_threshold = request.POST.get('pvalue_threshold')
+        heatmap_gene_count = request.POST.get('heatmap_gene_count')
+
+        group1_samples_list = request.POST.get('group1_samples').split(";")
+        group1_name = request.POST.get('group1_name')
+
+        group2_samples_list = request.POST.get('group2_samples').split(";")
+        group2_name = request.POST.get('group2_name')
+
+        if group2_name == "demo":
+            return render(request, 'gene_DE_report_display.html',
+                          {
+                              'task_destination_folder': 'demo',
+                              'species_query': 'coix',
+                              'group1_name': 'treatmant',
+                              'group1_samples_list': '["SRR10208252", "SRR10208253", "SRR10208254"]',
+                              'group2_name': 'control',
+                              'group2_samples_list': '["SRR10208255", "SRR10208256", "SRR10208257"]',
+                          })
+
+        if species_query == "coix":
+            exp_sheet_name = MainConfiguration.query_tables('coix_exp'),  # sheet name
+        elif species_query == "zea":
+            exp_sheet_name = MainConfiguration.query_tables('zea_exp'),
+        elif species_query == "sorghum":
+            exp_sheet_name = MainConfiguration.query_tables('sorghum_exp'),
+        else:
+            _error_message = "illegal query"
+
+        DE_data_raw, DE_group_list, DE_group_color_list = GeneDEDataCurator.gene_de_df_builder(exp_sheet_name,
+                                                                          group1_samples_list, group1_name,
+                                                                          group2_samples_list, group2_name)
+
+        task_destination_folder = DE_analysis_plt_generator.GeneDifferentialAnalysis(
+            DE_data_raw, DE_group_list, DE_group_color_list,
+            logfc_threshold, pvalue_threshold, heatmap_gene_count,
+            group1_name, group2_name)
+
+        print(task_destination_folder)
+        return render(request, 'gene_DE_report_display.html',
+                      {
+                          'task_destination_folder': task_destination_folder,
+                          'species_query': species_query,
+                          'group1_name': group1_name,
+                          'group1_samples_list': group1_samples_list,
+                          'group2_name': group2_name,
+                          'group2_samples_list': group2_samples_list,
+                      })
 
 
 def init_tf_scr(request):

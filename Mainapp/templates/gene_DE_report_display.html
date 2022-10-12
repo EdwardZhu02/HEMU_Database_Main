@@ -1,0 +1,116 @@
+{% extends 'basemodel.html' %}
+
+{% block title_block %}
+    Gene DE Analysis Module - HEMU
+{% endblock %}
+
+{% block content_block %}
+    {% load static %}
+
+    <div class="container" style="margin: 25px 110px;">
+      <div class="page-header">
+        <div class='row'>
+            <div class="col-md-2">
+                <div style="margin-top: 20px">
+                    <img src="{% static "AllPageStatic/HEMU_logo_crop.png" %}" class="img-responsive" alt="Responsive image" style="width: 60%; height: 60%">
+                </div>
+            </div>
+            <div class="col-md-10">
+                <h2 style="margin-top: 45px; margin-left: -60px">The HEMU RNA-seq database</h2>
+                <p style="color: #8e8e8e; margin-left: -55px">Search here for gene expression data regarding <br>representative Andropogoneae species.</p>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='container'>
+        <div class='row'>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <h3 class="text-center"><strong>Section 1: </strong>PROJECT SUMMARY <span class="label label-info">Important</span></h3>
+                        <HR style= "width: 80%" SIZE = 3>
+                        <br>
+                        <h4 class="text-center">Project Unique Identifier: <b style="color: darkred">{{ task_destination_folder }}</b></h4>
+                        <br>
+                        <p class="text-center"><strong>Species:</strong> <samp>{{ species_query }}</samp></p>
+                        <br>
+                        <p class="text-center"><strong>Group 1 Name:</strong> <kbd>{{ group1_name }}</kbd></p>
+                        <p class="text-center"><strong>Group 1 Samples:</strong> <samp>{{ group1_samples_list }}</samp></p>
+                        <br>
+                        <p class="text-center"><strong>Group 2 Name:</strong> <kbd>{{ group2_name }}</kbd></p>
+                        <p class="text-center"><strong>Group 2 Samples:</strong> <samp>{{ group2_samples_list }}</samp></p>
+
+                        <br><br>
+                        <h3 class="text-center"><strong>Section 2: </strong>DESCRIPTION OF WORKFLOW</h3>
+                        <HR style= "width: 80%" SIZE = 3>
+                        <h4 class="text-left"><strong>2.1</strong> Upstream Analysis</h4>
+                        <h4 class="text-left"><strong>2.2</strong> Downstream Analysis</h4>
+                        <p class="text-left"></p>
+                        <div class="alert alert-info" role="alert" style="margin: 20px 40px">
+                            This Differential Gene Expression (DGE) analysis task was conducted with <a href="https://bioconductor.org/packages/release/bioc/html/limma.html" class="alert-link">R limma package</a>.<br>
+                            Raw TPM values are normalized between samples, then underwent <code>log2(N+1)</code> transformation which aims to restore original library size, thus maintaining comparability across samples.
+                        </div>
+                        <br>
+
+
+
+
+
+
+
+                        <p>
+                            <br>
+                            Firstly, boxplots displaying sample TPM distribution before and after limma normalization.
+                        </p>
+
+                        <!--<iframe src="{% static 'Temp_R_DEprojects/' %}{{ task_destination_folder }}/boxplot_beforenorm.html"
+                            width="350px" height= "350px" name="topFrame" frameborder="0"></iframe>-->
+                        <img src="{% static 'Temp_R_DEprojects/' %}{{ task_destination_folder }}/boxplot_beforenorm.png"
+                         class="img-thumbnail" alt="Cinque Terre" width="300px" height="300px">
+                        <!--<iframe src="{% static 'Temp_R_DEprojects/' %}{{ task_destination_folder }}/boxplot_afternorm.html"
+                            width="350px" height= "350px" name="topFrame" frameborder="0"></iframe>-->
+                        <img src="{% static 'Temp_R_DEprojects/' %}{{ task_destination_folder }}/boxplot_afternorm.png"
+                         class="img-thumbnail" alt="Cinque Terre" width="300px" height="300px">
+
+                        <br>
+                        <p>Density plots of TPM value among samples</p>
+                        <!--<iframe src="{% static 'Temp_R_DEprojects/' %}{{ task_destination_folder }}/exp_density.html"
+                            width="350px" height= "350px" name="topFrame" frameborder="0"></iframe>-->
+                        <img src="{% static 'Temp_R_DEprojects/' %}{{ task_destination_folder }}/exp_density.png"
+                         class="img-responsive" alt="Cinque Terre" width="350px" height="350px">
+
+                        <br>
+                        <!--<iframe src="{% static 'Temp_R_DEprojects/' %}{{ task_destination_folder }}/exp_correlation.html"
+                            width="350px" height= "350px" name="topFrame" frameborder="0"></iframe>-->
+                        <img src="{% static 'Temp_R_DEprojects/' %}{{ task_destination_folder }}/exp_correlation.png"
+                         class="img-responsive" alt="Cinque Terre" width="350px" height="350px">
+
+
+                        <br>
+                        <p class="text-left">A volcano plot is a type of scatter plot represents differential expression of features (genes for example): on the x-axis we typically find the fold change and on the y-axis the p-value.</p>
+                        <br>
+                        <!--<iframe src="{% static 'Temp_R_DEprojects/' %}{{ task_destination_folder }}/volcano.html"
+                            width="550px" height= "350px" name="topFrame" frameborder="0"></iframe>-->
+                        <img src="{% static 'Temp_R_DEprojects/' %}{{ task_destination_folder }}/volcano.png"
+                         class="img-responsive" alt="Cinque Terre" width="550px" height="350px">
+
+                        <!--<iframe src="{% static 'Temp_R_DEprojects/' %}{{ task_destination_folder }}/pca_samples.html"
+                            width="550px" height= "350px" name="topFrame" frameborder="0"></iframe>-->
+                        <img src="{% static 'Temp_R_DEprojects/' %}{{ task_destination_folder }}/pca_samples.png"
+                         class="img-responsive" alt="Cinque Terre" width="550px" height="350px">
+
+                        <br>
+                        <img src="{% static 'Temp_R_DEprojects/' %}{{ task_destination_folder }}/topDE_heatmap.png"
+                         class="img-responsive" alt="Cinque Terre" width="800px">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
