@@ -129,7 +129,7 @@ def GeneDifferentialAnalysis(DE_data_raw, DE_group_list, DE_group_color_list,
       plt_sample_exp_density = ggplot(data=DEraw_density_data) +
           geom_density(aes(x=Raw_TPM, fill=sample_id), adjust=1.5) +
           coord_cartesian(xlim = c(0, 300)) +
-          scale_fill_viridis(discrete = T) +
+          scale_fill_viridis(option = 'cividis', discrete = T) +
           theme_minimal() +
           facet_wrap(~sample_id) +
           theme(#panel.grid = element_blank(), 
@@ -228,11 +228,12 @@ def GeneDifferentialAnalysis(DE_data_raw, DE_group_list, DE_group_color_list,
       
       plt_heatmap_topDE = pheatmap(log10(TPM_data_top_heatmap),
                                    display_numbers = TRUE,
-                                   color = colorRampPalette(c("#00AFBB", "white", "#c93756"))(256),
+                                   #color = colorRampPalette(c("#00AFBB", "white", "#c93756"))(256),
+                                   color = viridis(256, option='cividis'),
                                    fontsize=7, border_color = "grey60",
                                    main = paste0("Heatmap - top DE genes: ", group1_name, " vs ", group2_name, "\n(log10 transformed)"),
                                    treeheight_row=50, treeheight_col = 30,
-                                   cellwidth = 30, cellheight = 6,
+                                   cellwidth = 25, cellheight = 8,
                                    silent=T,
       )
       

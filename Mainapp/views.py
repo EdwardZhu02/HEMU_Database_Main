@@ -21,6 +21,9 @@ from threading import Thread  # Enabling multi-threading support
 from time import time
 import re
 
+# Celery applications
+import Mainapp.tasks as celery_tasks
+
 
 def init_scr_redirect(request):
     return redirect('/HEMUdb/home')
@@ -159,13 +162,20 @@ def gene_DE_init(request):
             _error_message = "illegal query"
 
         DE_data_raw, DE_group_list, DE_group_color_list = GeneDEDataCurator.gene_de_df_builder(exp_sheet_name,
-                                                                          group1_samples_list, group1_name,
-                                                                          group2_samples_list, group2_name)
+                                                                                               group1_samples_list,
+                                                                                               group1_name,
+                                                                                               group2_samples_list,
+                                                                                               group2_name)
 
         task_destination_folder = DE_analysis_plt_generator.GeneDifferentialAnalysis(
             DE_data_raw, DE_group_list, DE_group_color_list,
             logfc_threshold, pvalue_threshold, heatmap_gene_count,
             group1_name, group2_name)
+
+        #task_destination_folder = celery_tasks.DGE_plot_generator_deployer.delay(
+        #    DE_data_raw, DE_group_list, DE_group_color_list,
+        #    logfc_threshold, pvalue_threshold, heatmap_gene_count,
+        #    group1_name, group2_name).get()
 
         print(task_destination_folder)
         return render(request, 'gene_DE_report_display.html',
@@ -177,6 +187,17 @@ def gene_DE_init(request):
                           'group2_name': group2_name,
                           'group2_samples_list': group2_samples_list,
                       })
+
+
+def load_DE_staticfile(request, identifier_name, file_name, frame_height, frame_width):
+    print(identifier_name, file_name)
+    return render(request, 'static_html_display.html',
+                  {
+                      'identifier_name': identifier_name,
+                      'file_name': file_name,
+                      'frame_height': frame_height,
+                      'frame_width': frame_width,
+                  })
 
 
 def init_tf_scr(request):
