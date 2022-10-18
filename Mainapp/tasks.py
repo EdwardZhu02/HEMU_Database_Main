@@ -7,6 +7,7 @@ from celery import shared_task
 import time
 from Mainapp.R_visualization import DE_analysis_plt_generator
 
+
 @shared_task
 def DGE_plot_generator_deployer(DE_data_raw, DE_group_list, DE_group_color_list,
                              logfc_threshold, pvalue_threshold, heatmap_gene_count,

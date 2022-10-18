@@ -16,6 +16,10 @@ from Mainapp.Main_scripts import TFHeatmapDataCurator
 from Mainapp.R_visualization import TF_heatmap_generator
 from Mainapp.Main_scripts import TFHeatmapSampleConfiguration
 
+# TE Module
+from Mainapp.Main_scripts import TEBySampleDataCurator
+from Mainapp.R_visualization import TE_bysample_plt_generator
+
 # Other Components
 from threading import Thread  # Enabling multi-threading support
 from time import time
@@ -25,14 +29,19 @@ import re
 import Mainapp.tasks as celery_tasks
 
 
+# ==============MODULE: HOME PAGE==============
+# 1.1 HOME PAGE REDIRECTOR
 def init_scr_redirect(request):
     return redirect('/HEMUdb/home')
 
 
+# 1.1 HOME PAGE RENDERER
 def init_scr(request):
     return render(request, 'home.html')
 
 
+# ==============MODULE: GENE==============
+# 2.1 GENE EXPRESSION PROFILE QUERY HANDLER
 def gene_exp_init(request):
     global exp_df, _time_consumption
     _exp_matrix = []
@@ -62,15 +71,15 @@ def gene_exp_init(request):
                 if query_species == "coix":
                     exp_df = gene_exp_df_builder(indv_query,
                                                  MainConfiguration.query_tables('coix_exp'),  # Expression matrix
-                                                 MainConfiguration.query_tables('coix_samp'))  # Detailed sample info
+                                                 )  # Detailed sample info
                 elif query_species == "zea":
                     exp_df = gene_exp_df_builder(indv_query,
                                                  MainConfiguration.query_tables('zea_exp'),  # Expression matrix
-                                                 MainConfiguration.query_tables('zea_samp'))  # Detailed sample info
+                                                 )  # Detailed sample info
                 elif query_species == "sorghum":
                     exp_df = gene_exp_df_builder(indv_query,
                                                  MainConfiguration.query_tables('sorghum_exp'),  # Expression matrix
-                                                 MainConfiguration.query_tables('sorghum_samp'))  # Detailed sample info
+                                                 )  # Detailed sample info
                 else:
                     _error_message = "illegal query"
 
@@ -124,6 +133,7 @@ def gene_exp_init(request):
             return HttpResponse("Invalid query.")
 
 
+# 2.2 DGE QUERY HANDLER
 def gene_DE_init(request):
     global exp_sheet_name
 
@@ -172,7 +182,7 @@ def gene_DE_init(request):
             logfc_threshold, pvalue_threshold, heatmap_gene_count,
             group1_name, group2_name)
 
-        #task_destination_folder = celery_tasks.DGE_plot_generator_deployer.delay(
+        # task_destination_folder = celery_tasks.DGE_plot_generator_deployer.delay(
         #    DE_data_raw, DE_group_list, DE_group_color_list,
         #    logfc_threshold, pvalue_threshold, heatmap_gene_count,
         #    group1_name, group2_name).get()
@@ -189,6 +199,7 @@ def gene_DE_init(request):
                       })
 
 
+# 2.3 DGE STATIC FILE LOAD HANDLER
 def load_DE_staticfile(request, identifier_name, file_name, frame_height, frame_width):
     print(identifier_name, file_name)
     return render(request, 'static_html_display.html',
@@ -200,6 +211,8 @@ def load_DE_staticfile(request, identifier_name, file_name, frame_height, frame_
                   })
 
 
+# ==============MODULE: TF==============
+# 3.1 TF QUERY HANDLER
 def init_tf_scr(request):
     if request.method == "GET":
         return render(request, 'tf_mainpage.html',
@@ -250,13 +263,56 @@ def init_tf_scr(request):
             return HttpResponse("Some error occurred, please try again.")
 
 
-def init_te_scr(request):
-    return render(request, 'te_mainpage.html')
+# ==============MODULE: TE==============
+# 4.1 TE HOMEPAGE RENDERER
+def te_exp_init(request):
+    global exp_df
+
+    if request.method == "GET":
+        return render(request, 'TE/TE_search_main.html')
+    elif request.method == "POST":
+        species_by_accession = request.POST.get('species_query_accession')
+        species_by_teid = request.POST.get('species_query_teid')
+
+        if species_by_accession:  # by-sample-accession search
+            te_query_accession_list = request.POST.get('te_query_accession').split(";")
+            for te_query_accession in te_query_accession_list:
+                if species_by_accession == "coix":
+                    exp_df = TEBySampleDataCurator.TE_exp_df_builder_sample(te_query_accession,
+                                                 MainConfiguration.query_tables('coix_te'),  # Expression matrix
+                                                 )  # Detailed sample info
+                elif species_by_accession == "zea":
+                    exp_df = TEBySampleDataCurator.TE_exp_df_builder_sample(te_query_accession,
+                                                 MainConfiguration.query_tables('zea_te'),  # Expression matrix
+                                                 )  # Detailed sample info
+                elif species_by_accession == "sorghum":
+                    exp_df = TEBySampleDataCurator.TE_exp_df_builder_sample(te_query_accession,
+                                                 MainConfiguration.query_tables('sorghum_te'),  # Expression matrix
+                                                 )  # Detailed sample info
+                else:
+                    _error_message = "illegal query"
+                TE_bysample_plt_generator.TE_bysample_plt(exp_df, te_query_accession)
+
+            return render(request, 'TE/TE_bysample_result.html',
+                          {
+                              'query_list': te_query_accession_list
+                          })
 
 
+        elif species_by_teid:
+            return HttpResponse("Querying via TE id")
+        return HttpResponse("Not detected.")
+
+
+# ==============MODULE: DATA BROWSER==============
+# 5.1 JBROWSE2 RENDERER
 def jbrowse(request):
     return render(request, 'Jbrowse/Jb_sorghum_rio.html')
 
 
+# ==============MODULE: SUPP==============
+# 6.1 USER GUIDE RENDERER
 def user_guide(request):
     return render(request, 'user_guide.html')
+
+# 6.2 BLAST ENTRY

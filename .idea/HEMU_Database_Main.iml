@@ -19,6 +19,7 @@
       <excludeFolder url="file://$MODULE_DIR$/Mainapp/static/Temp_R_heatmap" />
       <excludeFolder url="file://$MODULE_DIR$/Mainapp/static/Temp_R_html" />
       <excludeFolder url="file://$MODULE_DIR$/Mainapp/static/Temp_R_DEprojects" />
+      <excludeFolder url="file://$MODULE_DIR$/Mainapp/static/Temp_R_TE" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.6 (Andro_Database)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

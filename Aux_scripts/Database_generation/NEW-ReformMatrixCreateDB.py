@@ -22,20 +22,23 @@ Version 2 - automatic searching of corresponding tissues and appending to each e
 #output_sample_sheet_name = "coix_samp"
 #output_expression_sheet_name = "coix_exp"
 
-expression_csv = "./Resources/Sb/Sorghum_bicolor_expression.csv"
-sampleinfo_csv = "./Resources/Sb/Sorghum_bicolor_sampleinfo.csv"
-output_sample_sheet_name = "sorghum_samp"
-output_expression_sheet_name = "sorghum_exp"
+#expression_csv = "./Resources/Sb/Sorghum_bicolor_expression.csv"
+#sampleinfo_csv = "./Resources/Sb/Sorghum_bicolor_sampleinfo.csv"
+#output_sample_sheet_name = "sorghum_samp"
+#output_expression_sheet_name = "sorghum_exp"
+
+expression_csv = "./Resources/Sl/Saccharum_expression.csv"
+sampleinfo_csv = "./Resources/Sl/Saccharum_sampleinfo.csv"
+output_sample_sheet_name = "saccharum_samp"
+output_expression_sheet_name = "saccharum_exp"
 
 # Used for sqlalchemy engine services
 sql_engine = create_engine("mysql+pymysql://root:Liuju83198431@localhost:3306/hemu_database")
 
-
-expression_data = pd.read_csv(expression_csv, low_memory=False, sep=",")
-expression_df = pd.DataFrame(expression_data)
 sampleinfo_data = pd.read_csv(sampleinfo_csv, low_memory=False, sep=",")
 sampleinfo_df = pd.DataFrame(sampleinfo_data)
-
+expression_data = pd.read_csv(expression_csv, low_memory=False, sep=",")
+expression_df = pd.DataFrame(expression_data)
 
 def reform_expression_matrix(raw_expression_df, sample_info_df):
     sample_id_comp = []  # Non-redundant sample ids

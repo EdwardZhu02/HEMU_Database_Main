@@ -1,7 +1,4 @@
-import time
-
 import pandas as pd
-import numpy as np
 import pymysql
 from Mainapp.Main_scripts.MainConfiguration import query_sql
 
@@ -81,11 +78,9 @@ def gene_de_df_builder(exp_sheet_name,
             final_df = pd.concat([final_df, tmp_df], axis=1)
 
     return final_df, total_groupby_list, total_group_color_list
-    # final_df.to_csv("./testdata.csv")
 
-
-if __name__ == "__main__":
-    # For testing
-    gene_de_df_builder('zea_exp',
-                       ['SRR13587899','SRR13587900', 'SRR13587901', 'SRR13587902', 'SRR13587903', 'SRR13587904'], '',
-                       '', '')
+# if __name__ == "__main__":
+# For testing
+# gene_de_df_builder('zea_exp',
+# ['SRR13587899','SRR13587900', 'SRR13587901', 'SRR13587902', 'SRR13587903', 'SRR13587904'], '',
+# '', '')

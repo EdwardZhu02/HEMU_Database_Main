@@ -13,7 +13,7 @@ dbpassword = str(query_sql("pwd"))
 dbdatabase = str(query_sql("dbname"))
 
 
-def gene_exp_df_builder(gene_id, exp_sheet_name, sampleinfo_sheet_name):
+def gene_exp_df_builder(gene_id, exp_sheet_name):
     # print(gene_id)
     """
 
