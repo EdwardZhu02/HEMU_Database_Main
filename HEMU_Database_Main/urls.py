@@ -20,5 +20,8 @@ from Mainapp import views
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('HEMUdb/', include('Mainapp.urls')),
+    path('celery_test/', views.celery_test, name='celery_test'),
+
+    # Module: Local External Servers
 
 ]
