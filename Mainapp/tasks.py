@@ -1,22 +1,32 @@
 from __future__ import absolute_import, unicode_literals
-from celery import shared_task
 from HEMU_Database_Main.celery import app
 from celery import shared_task
 
 # External Packages
 import time
-from Mainapp.R_visualization import DE_analysis_plt_generator
+import pandas as pd
+from Mainapp.Main_scripts.wgcna import WGCNASampleGeneDataCurator
+from Mainapp.Main_scripts.wgcna import WGCNAShinyAppHandler
 
 
 @shared_task
-def DGE_plot_generator_deployer(DE_data_raw, DE_group_list, DE_group_color_list,
-                             logfc_threshold, pvalue_threshold, heatmap_gene_count,
-                             group1_name, group2_name):
+def waste_time():
+    time.sleep(10)
+    print("Run function 'waste_time' ok")
 
-    output_folder_name = DE_analysis_plt_generator.GeneDifferentialAnalysis(
-        DE_data_raw, DE_group_list, DE_group_color_list,
-        logfc_threshold, pvalue_threshold, heatmap_gene_count,
-        group1_name, group2_name)
 
-    return output_folder_name
+@shared_task
+def WGCNA_handler(exp_sheet_name, gene_list, sample_list, expression_format, output_app_dir, output_app_dir_name):
+    expression_matrix = WGCNASampleGeneDataCurator.wgcna_init_df_builder(
+        exp_sheet_name,
+        gene_list,
+        sample_list,
+        expression_format
+    )
+
+    WGCNAShinyAppHandler.WGCNA_shiny_app_creator(
+        expression_matrix, pd.DataFrame([]),
+        output_app_dir,
+        output_app_dir_name
+    )
 
