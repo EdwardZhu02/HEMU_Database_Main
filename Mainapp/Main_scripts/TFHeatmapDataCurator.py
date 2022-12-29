@@ -31,7 +31,7 @@ def TF_fam_to_geneid_query(species, TF_fam_name_list, indv_geneid_list):
         except:
             print("Exception occurred.")
         for indv_index in results:
-            _TF_fam_list.append([indv_index[2], indv_index[3]])  # [TF_geneid, TF_family]
+            _TF_fam_list.append([indv_index[1], indv_index[2]])  # [TF_geneid, TF_family]
 
     for indv_TF_gene in indv_geneid_list:
         _TF_fam_list.append([indv_TF_gene, 'custom_TF'])
@@ -62,7 +62,7 @@ def TF_heatmap_df_builder(species, TF_fam_list, tissue_list):
                 # print(sqlcmd_select_tf_expression)
                 try:  # Execute SQL command
                     cursor.execute(sqlcmd_select_tf_expression)
-                    sql_result_tpm = str(cursor.fetchall()[0][4])
+                    sql_result_tpm = str(cursor.fetchall()[0][3])
                     # print(sql_result_tpm)
                     main_TF_heatmap_res.append([indv_sample,
                                                 indv_tissue,

@@ -48,14 +48,13 @@ def gene_de_df_builder(exp_sheet_name,
     sqlcmd += ";"
 
     try:  # Execute SQL command
-        print(sqlcmd)
         cursor.execute(sqlcmd)
         results = cursor.fetchall()
     except:
         print("Exception occurred while querying database.")
 
     # Build dataframe
-    tmp_df_list = [[indv[1], indv[2], indv[4]] for indv in results]  # [[Gene_id, Sample_id, TPM], [G2, S2, T2]..]
+    tmp_df_list = [[indv[0], indv[1], indv[3]] for indv in results]  # [[Gene_id, Sample_id, TPM], [G2, S2, T2]..]
     tmp_df_dict = {}  # sample_id => [[gene_id, TPM],[]]
     for indv_entry in tmp_df_list:
         if indv_entry[1] not in tmp_df_dict.keys():

@@ -37,7 +37,7 @@ def gene_exp_df_builder(gene_id, exp_sheet_name):
         print("Exception occurred while querying database.")
 
     # Build dataframe
-    init_df_list = [[indv[2], indv[3], indv[4], indv[5]] for indv in results]
+    init_df_list = [[indv[1], indv[2], indv[3], indv[4]] for indv in results]
     init_df = pd.DataFrame(init_df_list, columns=['sample_id', 'fpkm', 'tpm', 'tissue_type'])
     # SRR-ID FPKM TPM TISSUE INFO1 INFO2 INFO3
 

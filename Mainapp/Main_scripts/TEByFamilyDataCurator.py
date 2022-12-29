@@ -2,7 +2,7 @@ import pandas as pd
 import pymysql
 from Mainapp.Main_scripts.MainConfiguration import query_sql
 
-# Extract TE expression data from database, by individual sample accession
+# Extract TE expression data from database, by individual TE family ID
 
 # Used for pymysql services
 dbhost = str(query_sql("host"))
@@ -11,7 +11,7 @@ dbpassword = str(query_sql("pwd"))
 dbdatabase = str(query_sql("dbname"))
 
 
-def TE_exp_df_builder_sample(sample_id, TE_sheet_name):
+def TE_exp_df_builder_family(TE_family_id, TE_sheet_name):
     """
 
     :return: pd.DataFrame object, with column index: [sample_id, FPKM, TPM, sample_tissue]
@@ -22,8 +22,7 @@ def TE_exp_df_builder_sample(sample_id, TE_sheet_name):
     db = pymysql.connect(host=dbhost, user=dbuser, password=dbpassword, database=dbdatabase)
     cursor = db.cursor()
 
-    sqlcmd_select = "SELECT * FROM %s WHERE sample_id='%s';" % (TE_sheet_name, sample_id)
-    # print(sqlcmd_select)
+    sqlcmd_select = "SELECT * FROM %s WHERE TE_id='%s';" % (TE_sheet_name, TE_family_id)
 
     try:  # Execute SQL command
         cursor.execute(sqlcmd_select)
@@ -31,8 +30,13 @@ def TE_exp_df_builder_sample(sample_id, TE_sheet_name):
     except:
         print("Exception occurred while querying database.")
 
-    # Build dataframe, columns=['TE_id', 'TE_class', 'fpkm', 'tpm', 'TE_class_group']
-    init_df_list = [[indv[0], indv[2], indv[3], indv[4], indv[5]] for indv in results]
-    init_df = pd.DataFrame(init_df_list, columns=['TE_id', 'TE_class', 'fpkm', 'tpm', 'TE_class_group'])
-    #print(init_df)
-    return init_df
+    # Obtain TE classification information
+    TE_class = results[0][3]
+    TE_class_group = results[0][6]
+
+    # Build dataframe, columns=['sample_id', 'fpkm', 'tpm', 'sample_tissue']
+    init_df_list = [[indv[1], indv[3], indv[4], indv[6]] for indv in results]
+    init_df = pd.DataFrame(init_df_list,
+                           columns=['sample_id', 'fpkm', 'tpm', 'sample_tissue'])
+
+    return TE_class, TE_class_group, init_df
