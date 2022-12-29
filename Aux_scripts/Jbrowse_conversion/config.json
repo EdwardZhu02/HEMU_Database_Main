@@ -1,0 +1,138 @@
+
+    {
+      "assemblies": [
+        {
+          "name": "GCA_003482435.1-Sorghum_bicolor_Tx430",
+          "sequence": {
+            "type": "ReferenceSequenceTrack",
+            "trackId": "GCA_003482435.1-Sorghum_bicolor_Tx430-1666873460320",
+            "adapter": {
+              "type": "BgzipFastaAdapter",
+              "fastaLocation": {
+                "locationType": "UriLocation",
+                "uri": "http://1.12.73.21/jbrowse_resources/GCA_003482435.1-Sorghum_bicolor_Tx430/GCA_003482435.1_genome.fa.gz"
+              },
+              "faiLocation": {
+                "locationType": "UriLocation",
+                "uri": "http://1.12.73.21/jbrowse_resources/GCA_003482435.1-Sorghum_bicolor_Tx430/GCA_003482435.1_genome.fa.gz.fai"
+              },
+              "metadataLocation": {
+                "locationType": "UriLocation",
+                "uri": "/path/to/fa.metadata.yaml"
+              },
+              "gziLocation": {
+                "locationType": "UriLocation",
+                "uri": "http://1.12.73.21/jbrowse_resources/GCA_003482435.1-Sorghum_bicolor_Tx430/GCA_003482435.1_genome.fa.gz.gzi"
+              }
+            },
+            "displays": [
+              {
+                "type": "LinearReferenceSequenceDisplay",
+                "displayId": "GCA_003482435.1-Sorghum_bicolor_Tx430-1666873460320-LinearReferenceSequenceDisplay"
+              }
+            ]
+          },
+          "refNameAliases": {
+            "adapter": {
+              "type": "RefNameAliasAdapter",
+              "location": {
+                "locationType": "UriLocation",
+                "uri": "/jbrowse_resources/GCA_003482435.1-Sorghum_bicolor_Tx430/GCA_003482435.1_chralias.txt"
+              }
+            }
+          },
+          "displayName": "Sorghum_bicolor_Tx430"
+        }
+      ],
+      "tracks": [
+        {
+          "type": "FeatureTrack",
+          "trackId": "gca_003482435.1_helitron_te.gff3-1666873708106",
+          "name": "GCA_003482435.1_helitron_TE.gff3",
+          "assemblyNames": [
+            "GCA_003482435.1-Sorghum_bicolor_Tx430"
+          ],
+          "adapter": {
+            "type": "Gff3Adapter",
+            "gffLocation": {
+              "locationType": "UriLocation",
+              "uri": "http://1.12.73.21/jbrowse_resources/GCA_003482435.1-Sorghum_bicolor_Tx430/GCA_003482435.1_helitron_TE.gff3"
+            }
+          },
+          "displays": [
+            {
+              "type": "LinearBasicDisplay",
+              "displayId": "gca_003482435.1_helitron_te.gff3-1666873708106-LinearBasicDisplay",
+              "renderer": {
+                "type": "SvgFeatureRenderer",
+                "color1": "rgb(101, 89, 137)"
+              }
+            },
+            {
+              "type": "LinearArcDisplay",
+              "displayId": "gca_003482435.1_helitron_te.gff3-1666873708106-LinearArcDisplay"
+            }
+          ]
+        },
+        {
+          "type": "FeatureTrack",
+          "trackId": "gca_003482435.1_ltr_te.gff3-1666873737919",
+          "name": "GCA_003482435.1_LTR_TE.gff3",
+          "assemblyNames": [
+            "GCA_003482435.1-Sorghum_bicolor_Tx430"
+          ],
+          "adapter": {
+            "type": "Gff3Adapter",
+            "gffLocation": {
+              "locationType": "UriLocation",
+              "uri": "http://1.12.73.21/jbrowse_resources/GCA_003482435.1-Sorghum_bicolor_Tx430/GCA_003482435.1_LTR_TE.gff3"
+            }
+          },
+          "displays": [
+            {
+              "type": "LinearBasicDisplay",
+              "displayId": "gca_003482435.1_ltr_te.gff3-1666873737919-LinearBasicDisplay",
+              "renderer": {
+                "type": "SvgFeatureRenderer",
+                "color1": "rgb(222, 136, 165)"
+              }
+            },
+            {
+              "type": "LinearArcDisplay",
+              "displayId": "gca_003482435.1_ltr_te.gff3-1666873737919-LinearArcDisplay"
+            }
+          ]
+        },
+        {
+          "type": "FeatureTrack",
+          "trackId": "gca_003482435.1_tir_te.gff3-1666873745920",
+          "name": "GCA_003482435.1_TIR_TE.gff3",
+          "assemblyNames": [
+            "GCA_003482435.1-Sorghum_bicolor_Tx430"
+          ],
+          "adapter": {
+            "type": "Gff3Adapter",
+            "gffLocation": {
+              "locationType": "UriLocation",
+              "uri": "http://1.12.73.21/jbrowse_resources/GCA_003482435.1-Sorghum_bicolor_Tx430/GCA_003482435.1_TIR_TE.gff3"
+            }
+          },
+          "displays": [
+            {
+              "type": "LinearBasicDisplay",
+              "displayId": "gca_003482435.1_tir_te.gff3-1666873745920-LinearBasicDisplay",
+              "renderer": {
+                "type": "SvgFeatureRenderer",
+                "color1": "rgb(103, 137, 186)"
+              }
+            },
+            {
+              "type": "LinearArcDisplay",
+              "displayId": "gca_003482435.1_tir_te.gff3-1666873745920-LinearArcDisplay"
+            }
+          ]
+        }
+      ]
+    }
+    
+    
