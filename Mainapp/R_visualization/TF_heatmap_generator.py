@@ -6,7 +6,7 @@ pandas2ri.activate()  # Used for variable conversion (pd.DataFrame)
 
 
 def TF_tpm_heatmap(raw_tf_data):
-    # Generate 7-digit random number for heatmap nomination
+    # Generate 10-digit random number for heatmap nomination
     output_filename = str(random.randint(1000000000, 9999999999)) + "heatmap.png"
 
     robjects.globalenv['tf_data'] = raw_tf_data

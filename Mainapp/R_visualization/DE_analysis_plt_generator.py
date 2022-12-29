@@ -13,7 +13,7 @@ def GeneDifferentialAnalysis(DE_data_raw, DE_group_list, DE_group_color_list,
     output_folder_name = str(random.randint(1000000000, 9999999999))
 
     os.makedirs('Mainapp/static/Temp_R_DEprojects/' + output_folder_name, exist_ok=True)
-    print("Folder made done, %s" % output_folder_name)
+    # print("Folder made done, %s" % output_folder_name)
 
     robjects.globalenv['DE_data_raw'] = DE_data_raw
     robjects.globalenv['DE_group_list'] = DE_group_list
