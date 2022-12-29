@@ -4,53 +4,42 @@
     The HEMU Andropogoneae Database
 {% endblock %}
 
-{% block content_block %}
+{% block header_block %}
     {% load static %}
-
-    <div class="container" style="margin: 25px 110px;">
-      <div class="page-header">
-        <div class='row'>
-            <div class="col-sm-2">
-                <div style="margin-top: 45px; margin-left: -15px">
-                    <img src="{% static "AllPageStatic/HEMU_logo_crop.png" %}" class="img-responsive" alt="Responsive image" style="width: 90px; height: 130px">
-                </div>
-            </div>
-            <div class="col-sm-10">
-                <h2 style="margin-top: 45px; margin-left: -70px">The HEMU Andropogoneae Database <br> and Analysis Platform</h2>
-                <p class="lead" style="margin: 0 -10px 0 -80px;">「禾易长亩，终善且有。」<small><small>——《诗经·小雅·甫田》</small></small></p>
-                <p style="color: #8e8e8e; margin-left: -70px"><i>The strong crops grew so thick that they covered the ridges, and it was a year of good harvest.<br>-- "Book of Songs · Xiaoya · Futian"</i></p>
-            </div>
+    <div class="col-sm-2">
+        <div style="margin-top: 45px; margin-left: -15px">
+            <img src="{% static "AllPageStatic/HEMU_logo_crop.png" %}" class="img-responsive" alt="Responsive image" style="width: 90px; height: 130px">
         </div>
-      </div>
     </div>
+    <div class="col-sm-10">
+        <h2 style="margin-top: 45px; margin-left: -70px">The HEMU Andropogoneae Database <br> and Analysis Platform</h2>
+        <p class="lead" style="margin: 0 -10px 0 -80px;">「禾易长亩，终善且有。」<small><small>——《诗经·小雅·甫田》</small></small></p>
+        <p style="color: #8e8e8e; margin-left: -70px"><i>The strong crops grew so thick that they covered the ridges, and it was a year of good harvest.<br>-- "Book of Songs · Xiaoya · Futian"</i></p>
+    </div>
+{% endblock %}
 
+{% block content_block %}
     <div class='container'>
         <div class='row'>
-            <div class="col-md-1">
-
-            </div>
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div>
-                            <h5>Welcome to <b>HEMU</b>, a comprehensive and handy Andropogoneae database for researchers.</h5><br>
-                            We have developed an easy-to-handle, graphical based user interface, enabling user to discover
-                            genomic data from multiple representative Andropogoneae species within a click.
+                            <h4>Welcome to <b>HEMU</b>, a comprehensive and handy Andropogoneae database for researchers.</h4>
+                            <p>We have developed an easy-to-handle, graphical based user interface, enabling user to discover
+                                genomic data from multiple representative Andropogoneae species within a click</p>
                         </div>
+                        <br><br>
+                        <div>
+                            <p class="text-center"><strong>Figure 1: </strong>Structures and main functions of HEMU database
+                                <br>(Shown in unique toolkits)</p>
+                        </div>
+                        <HR style= "width: 80%" SIZE = 3>
+                        <img src="{% static 'AllPageStatic/HEMU_pipeline_1x.png' %}"
+                                class="img-thumbnail" alt="Cinque Terre">
                     </div>
                 </div>
             </div>
-            <div class="col-md-1">
-
-            </div>
         </div>
     </div>
-
-    <footer class="footer">
-      <div class="container">
-        <p class="text-muted">Developed by Edward Zhu <br> This is a beta version.</p>
-      </div>
-    </footer>
-
-
 {% endblock %}

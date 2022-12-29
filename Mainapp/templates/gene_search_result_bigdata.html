@@ -1,7 +1,8 @@
 {% extends 'basemodel.html' %}
+{% load static %}
 
 {% block title_block %}
-    Gene Expression - HEMU
+    Search result - HEMU
 {% endblock %}
 
 {% block header_block %}
@@ -29,7 +30,7 @@
                         <form method="post" style="text-align: center">
                             <label>
                                 {% csrf_token %}
-                                <input type="text" name="main_query" placeholder="separate multiple queries with ;" class="form-control" id="main_query_id" style="width: 550px; height: 45px" required>
+                                <input type="text" name="main_query" placeholder="separate multiple queries with ;" value="{{ last_query }}" class="form-control" id="main_query_id" style="width: 550px; height: 45px" required>
                             </label>
                             <label>
                                 <select class="form-control" name="query_species" id="query_species_id" style="height: 45px">
@@ -62,16 +63,68 @@
             </div>
         </div>
     </div>
+    <div class="loader-wrapper" style="text-align: center">
+        <b style="color: darkred">Task time consumption: {{ time_consumption }}s</b>
+    </div>
+
+    {% for indv_query in query_list_full %}
+
+        <div class='container'>
+            <div class='row'>
+                <div class="col-md-8">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ indv_query.0.0 }}: Expression Plots ({{ query_format }})</h3>
+                        </div>
+                        <div class="panel-body">
+                            <iframe src="{% static 'Temp_R_html/' %}{{ indv_query.0.0 }}_plt1.html"
+                            width="700px" height= "400px" name="topFrame" frameborder="0"></iframe>
+
+                            <iframe src="{% static 'Temp_R_html/' %}{{ indv_query.0.0 }}_plt2.html"
+                                    width="700px" height= "500px" name="topFrame" frameborder="0"></iframe>
+                            <br><hr>
+                            <div class="text-center">
+                                <a class="btn btn-default" href="{% url 'gene_sequence' %}?sp={{ query_species }}&gene={{ indv_query.0.0 }}">View raw sequence</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ indv_query.0.0 }}: Fundamental Info ({{ query_format }})</h3>
+                        </div>
+                        <div class="panel-body">
+                            This panel displays fundamental information regarding the query gene.
+                            <ul class="list-group">
+                                <li class="list-group-item">Gene ID: <b style="color: #ff1e3a">{{ indv_query.0.0 }}</b></li>
+                                <li class="list-group-item">Detected in <b style="color: #ff1e3a">{{ indv_query.0.1 }}/{{ indv_query.0.2 }}</b> samples <b style="color: #ff1e3a">({% widthratio indv_query.0.1 indv_query.0.2 100 %}%)</b></li>
+                                <li class="list-group-item">Max: <b>{{ indv_query.0.3 }}</b></li>
+                                <li class="list-group-item">Min: <b>{{ indv_query.0.4 }}</b></li>
+                                <li class="list-group-item">Median: <b>{{ indv_query.0.5 }}</b></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
 
 {% endblock %}
 
 {% block footer_script_block %}
     <script>
+        $(window).on('load', function (){
+            $('.loader-wrapper').fadeOut()
+        });
+    </script>
+    <script>
         function exampleList() {
             const species = $("#query_species_id option:selected").val();
             switch (species) {
                 case 'coix':
-                    document.getElementById("main_query_id").value="Cl044485";
+                    document.getElementById("main_query_id").value="Cl044485;Cl033742";
                     break;
                 case 'zea':
                     document.getElementById("main_query_id").value="Zm00001d054112";
@@ -89,3 +142,4 @@
         }
     </script>
 {% endblock %}
+

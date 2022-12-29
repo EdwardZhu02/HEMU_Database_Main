@@ -1,0 +1,50 @@
+{% extends 'basemodel.html' %}
+
+{% block title_block %}
+    Loading Screen - HEMU
+{% endblock %}
+
+{% block header_block %}
+    <p> </p>
+{% endblock %}
+
+{% block content_block %}
+    {% load static %}
+    <div class="container">
+        <div class='row'>
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-body">
+                        <br>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="input-group" style="text-align: center">
+                                <label>
+                                    <input type="text" name="email_query" class="form-control" placeholder="Your Email">
+                                </label>
+                                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">submit</button>
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title" id="myModalLabel">Loading... </h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                Please Wait! We will send a <strong>identification code</strong> to your email after the tasks completed.
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

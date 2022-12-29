@@ -1,0 +1,20 @@
+{% extends 'wgcna/wgcna_step1.html' %}
+
+{% block wgcna_matrix_generate_result_block %}
+<div class="text-center">
+    <br>
+    <h3 style="color: darkred;">Congratulations! Dataframe Generation Completed.</h3>
+    <b>Parameters input:</b><br><b style="color: dodgerblue">{{ dataframe_description }}</b>
+    <br>
+    <HR style= "width: 80%" SIZE = 3>
+    <b>The expression matrix has been generated and imported to our customized R:shiny instance for interactive WGCNA analysis.</b>
+    <b>The shiny instance as well as the matrix will be kept on the server for <strong>24hrs</strong>.</b>
+    <b>You can access the above instance anytime using the following ID:</b>
+    <br>
+    <pre><strong style="color: darkred"></strong>{{ shiny_app_name }}</pre>
+    <br>
+    <b>Please proceed to the next step.</b>
+    <br>
+    <a class="btn btn-primary btn-lg" href="{% url 'wgcna_stage2' %}?id={{ shiny_app_name }}">Launch R:Shiny Instance</a>
+</div>
+{% endblock %}

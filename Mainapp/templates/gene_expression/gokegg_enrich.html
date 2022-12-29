@@ -1,0 +1,68 @@
+{% extends 'basemodel.html' %}
+
+{% block title_block %}
+    GO/KEGG Enrichment - HEMU
+{% endblock %}
+
+{% block header_block %}
+    {% load static %}
+    <div class="col-sm-2">
+        <div style="margin-top: 10px; margin-left: -5px">
+            <img src="{% static "AllPageStatic/HEMU_logo_crop.png" %}" class="img-responsive" alt="Responsive image" style="width: 72px; height: 104px">
+        </div>
+    </div>
+    <div class="col-sm-10">
+        <h2 style="margin-top: 20px; margin-left: -70px">GO/KEGG Enrichment</h2>
+        <p style="color: #8e8e8e; margin-left: -65px">Search functional annotation information of gene transcripts <br>in representative Andropogoneae species.</p>
+    </div>
+{% endblock %}
+
+{% block content_block %}
+    <div class="container"><div class='row'><div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="text-align: center">Gene GO/KEGG Enrichment: Search</div>
+            <div class="panel-body">
+                <form method="post" style="text-align: center">
+                    {% csrf_token %}
+                    <label class="col-sm-5">
+                        <p class="form-control-static">Species to enrich</p>
+                            <select class="form-control" name="query_species" id="query_species_id" style="height: 45px">
+                                <option value="coix" selected>Coix lacryma-jobi var.lacryma-jobi (GCA_009763385.1)</option>
+                                <option value="zea">Zea mays B73v4 (GCF_000005005.2)</option>
+                                <option value="saccharum">Saccharum spontaneum (GCA_003544955.1)</option>
+                                <option value="sorghum">Sorghum bicolor BTx623 (GCF_000003195.3)</option>
+                                <option value="miscanthus">Miscanthus lutarioriparius (GCA_904845875.1)</option>
+                            </select>
+                        <br>
+                        <a href="javascript:exampleList()">Show Examples</a>
+                        <input type="submit" value="Enrich" class="btn btn-primary" style="width: 200px; height: 35px">
+                    </label>
+                    <label class="col-sm-7">
+                        <p class="form-control-static">Gene List</p>
+                        <textarea class="form-control" rows="10" cols="50" name="query_gene_list" id="query_gene_list_id" required></textarea>
+                    </label>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer_script_block %}
+    <script>
+        function exampleList() {
+            const species = $("#query_species_id option:selected").val();
+            switch (species) {
+                case 'zea':
+                    document.getElementById("query_gene_list_id").value="Egl276490\n\
+Egl156150\n\
+Egl034240\n\
+Egl099560\n\
+Egl177410\n\
+Egl143390\n";
+            }
+        }
+    </script>
+{% endblock %}
