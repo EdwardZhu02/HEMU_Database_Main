@@ -78,7 +78,7 @@ DATABASES = {'default': {
     'ENGINE': 'django.db.backends.mysql',
     'NAME': 'hemu_database',
     'USER': 'root',
-    'PASSWORD': 'Liuju83198431',
+    'PASSWORD': '-',
     'HOST': 'localhost',
     'PORT': 3306,}}
 # }, 'PASSWORD': MainConfiguration.query_sql_pwd()}
