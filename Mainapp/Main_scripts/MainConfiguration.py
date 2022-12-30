@@ -25,12 +25,12 @@ tables_dict = {  # Table names
 }
 
 sql_user = "root"
-sql_pwd = "Liuju83198431"
+sql_pwd = "-"
 sql_host = "localhost"
 sql_port = "3306"
 sql_dbname = "hemu_database"
 
-admin_pwd = "hemu_admin0677"
+admin_pwd = "-"
 
 
 def query_geneseq_tables(species2query):
